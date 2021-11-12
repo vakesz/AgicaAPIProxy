@@ -14,12 +14,15 @@ let cache = apicache.middleware
 
 router.get('/', cache('10 minutes'), async (req, res, next) => {
   try {
-    const params = new URLSearchParams({
-      [API_KEY_NAME]: API_KEY_VALUE,
-      ...url.parse(req.url, true).query,
+    const key = new URLSearchParams({
+      [API_KEY_NAME]: API_KEY_VALUE
     })
 
-    const apiRes = await needle('get', `${API_CALENDAR_URL}?${params}`)
+    const params = new URLSearchParams({
+      ...url.parse(req.url, true).query
+    })
+
+    const apiRes = await needle('get', `${API_CALENDAR_URL}?${key}&${params}`)
     const data = apiRes.body
 
     // Log the request to the public API
