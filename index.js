@@ -23,7 +23,8 @@ app.use(cors())
 app.use(express.static('public'))
 
 // Routes
-app.use('/api', require('./routes'))
+app.use('/calendar', require('./routes/calendar.js'))
+app.use('/youtube', require('./routes/youtube.js'))
 
 // Error handler middleware
 app.use(errorHandler)
